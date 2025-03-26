@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from 'react'
+import Axios from 'axios'
 
 const App = () => {
 
   const [backendData, setBackendData] = useState([{}]);
 
+  // useEffect(() => {
+  //   fetch('/api').then(
+  //     response => response.json()
+  //   ).then(
+  //     data => {
+  //       setBackendData(data)
+  //     }
+  //   )
+  // }, []);
+
+  const getData = async() => {
+    const res = await Axios.get('/api');
+    setBackendData(res.data);
+  }
+
   useEffect(() => {
-    fetch('/api').then(
-      response => response.json()
-    ).then(
-      data => {
-        setBackendData(data)
-      }
-    )
+    getData();
   }, []);
 
   return (
